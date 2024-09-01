@@ -1,0 +1,37 @@
+CODE FOR : SECURITY SYSTEM UISNG PIR SENSOR AND SEND A SECURITY ALERT ON THE SERIAL MONITOR
+
+# C PROGRAM #
+
+const int led = 9;
+const int sensor = 8;
+const int buzzer = 10;
+bool sensor_value ;
+bool state = false ;
+void setup()
+{
+pinMode(led,OUTPUT);
+pinMode(buzzer,OUPUT);
+pinMode(sensor,INPUT);
+Serial.begin(9600);
+}
+void loop()
+{
+ sensor_value = digitalRead(sensor);
+  if(sensor_value == true){
+    state = true;
+    Serial.println("Motion Detected");
+  }
+  else
+  {
+    Serial.println("No Motion Detcted");
+  }
+  if(state == true){
+    digitalWrite(led,HIGH);
+    tone(buzzer,1000);
+    delay(500);
+    digitalWrite(led,LOW);
+    noTone(buzzer);
+    delay(500);
+  }
+  else
+    digitalWrite(led,LOW);
